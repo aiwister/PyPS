@@ -1,7 +1,7 @@
 class Formula:
     def __init__(self):
         pass
-    @staticmethod
+
     def Momentum(m, v):
         return m*v
 
