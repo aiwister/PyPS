@@ -6,7 +6,7 @@ class Formula:
         return m*v
 
     def KineticEnergy(m, v):
-        return 0.5*m*v**2
+        return 0.5*m*(v*v)
 
     def GravitationalPotentialEnergy(m, h):
         return m*9.8*h
