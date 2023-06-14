@@ -8,7 +8,7 @@ class Formula:
     def KineticEnergy(m, v):
         return 0.5*m*(v*v)
 
-    def GravitationalPotentialEnergy(m, h):
+    def PotentialEnergy(m, h):
         return m*9.8*h
 
     def Work(F, d):

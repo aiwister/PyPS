@@ -9,18 +9,22 @@ class NeedTimeOrHeight(Exception):
 
 
 class Weight:
-    def __init__(self, weight, position:List[int]=[0, 0], velocity=[0, 0], acceleration=[0,0]):
+    def __init__(self, weight, position=[0, 0], velocity=[0, 0], acceleration=[0,0]):
         self.m = weight
         self.p = np.array(position)
         self.direction = np.array(velocity)/math.sqrt(velocity[0]**2+velocity[1]**2)
         self.v = np.array(velocity)
+        self.velocity=math.sqrt(velocity[0]**2+velocity[1]**2)
         self.a = np.array(acceleration)
         self.momentum = Formula.Momentum(self.m, self.v)
         self.kinetic_energy = Formula.KineticEnergy(self.m, self.v)
-        self.gravitational_potential_energy = Formula.GravitationalPotentialEnergy(
+        self.potential_energy = Formula.PotentialEnergy(
             self.m, self.p)
         self.work = Formula.Work(self.m, self.a)
         self.force = Formula.Force(self.m, self.a)
+
+    def _vtovel(self, v):
+        return math.sqrt(v[0]**2+v[1]**2)
 
     def _update(self):
         self.m = self.m
@@ -28,9 +32,9 @@ class Weight:
         self.v = self.v
         self.a = self.a
         self.momentum = Formula.Momentum(self.m, self.v)
-        self.kinetic_energy = Formula.KineticEnergy(self.m, self.v)
-        self.gravitational_potential_energy = Formula.GravitationalPotentialEnergy(
-            self.m, self.p)
+        self.kinetic_energy = Formula.KineticEnergy(self.m, self.velocity)
+        self.potential_energy = Formula.PotentialEnergy(
+            self.m, self.p[1])
         self.work = Formula.Work(self.m, self.a)
         self.force = Formula.Force(self.m, self.a)
 
@@ -43,6 +47,7 @@ class Weight:
         v+=np.array(speed)
         if update_value:
             self.v=v
+            self.velocity=self._vtovel(v)
             self.a=[0,9.8]
             self._update()
         return v
@@ -51,13 +56,13 @@ class Weight:
 
     def __str__(self):
         return f"""Object(
-    weight="{str(self.m)}"
-    position="{str(self.p)}"
-    velocity="{str(self.v)}"
-    acceleration="{str(self.a)}"
-    momentum="{str(self.momentum)}"
-    kinetic_energy="{str(self.kinetic_energy)}"
-    gravitational_potential_energy="{str(self.gravitational_potential_energy)}"
-    work="{str(self.work)}" 
-    force="{str(self.force)}"
+    weight = "{str(self.m)}"
+    position = "{str(self.p)}"
+    velocity = "{str(self.v.tolist())}"
+    acceleration = "{str(self.a)}"
+    momentum = "{str(self.momentum.tolist())}"
+    kinetic_energy = "{str(self.kinetic_energy)}"
+    potential_energy = "{str(self.potential_energy)}"
+    work = "{str(self.work)}" 
+    force = "{str(self.force)}"
 )"""
