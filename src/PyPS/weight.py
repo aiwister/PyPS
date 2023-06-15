@@ -9,7 +9,7 @@ class NeedTimeOrHeight(Exception):
 
 
 class Weight:
-    def __init__(self, weight, position=[0, 0], velocity=[0, 0], acceleration=[0,0]):
+    def __init__(self, weight:int, position:list=[0, 0], velocity:list=[0, 0], acceleration:list=[0,0]):
         self.m = weight
         self.p = np.array(position)
         self.direction = np.array(velocity)/math.sqrt(velocity[0]**2+velocity[1]**2)
@@ -23,7 +23,7 @@ class Weight:
         self.work = Formula.Work(self.m, self.a)
         self.force = Formula.Force(self.m, self.a)
 
-    def _vtovel(self, v):
+    def _vtovel(self, v:int):
         return math.sqrt(v[0]**2+v[1]**2)
 
     def _update(self):
@@ -39,7 +39,7 @@ class Weight:
         self.force = Formula.Force(self.m, self.a)
 
 
-    def fall(self, speed=[0,0], update_value=False, **kwargs):
+    def fall(self, speed:list=[0,0], update_value:bool=False, **kwargs):
         if "time" not in kwargs and "height" not in kwargs:
             raise NeedTimeOrHeight(
                 "You need to specify either time or height") from None

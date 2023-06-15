@@ -1,4 +1,4 @@
-from obj import Weight
+from weight import Weight
 import sympy
 a=sympy.Symbol("a")
 o=Weight(1,[0,0],[1,1],[0,0])
