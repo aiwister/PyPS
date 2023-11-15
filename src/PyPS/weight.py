@@ -23,7 +23,7 @@ class Weight:
         self.work = Formula.Work(self.m, self.a)
         self.force = Formula.Force(self.m, self.a)
 
-    def _vtovel(self, v:int):
+    def _vtovel(self, v:list):
         return math.sqrt(v[0]**2+v[1]**2)
 
     def _update(self):
